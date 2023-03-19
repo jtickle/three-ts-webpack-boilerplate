@@ -12,6 +12,8 @@ export class Game {
   constructor () {
     this.animate = this.animate.bind(this)
     this.resize = this.resize.bind(this)
+    this.start = this.start.bind(this)
+    this.stop = this.stop.bind(this)
 
     this.scene = new THREE.Scene()
     this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
@@ -33,6 +35,8 @@ export class Game {
       this.event.dispatchEvent({ type: 'screen-resize', width, height })
     })
     this.event.addEventListener('screen-resize', this.resize)
+    
+    window.dispatchEvent(new Event('resize'))
   }
 
   animate (thisAnimTime: DOMHighResTimeStamp): void {
@@ -54,7 +58,6 @@ export class Game {
 
   start (): void {
     this.animate(0)
-    window.dispatchEvent(new Event('resize'))
   }
 
   stop (): void {
